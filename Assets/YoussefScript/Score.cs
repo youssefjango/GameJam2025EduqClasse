@@ -1,14 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // Import TextMeshPro namespace for text components
 
 public class Score : MonoBehaviour
 {
-    public int currentScore = 0;
+    private int currentScore = 0;
     public List<string> placedObjects = new List<string>(); // Objects placed by the user
-    public Text scoreText;
-    public Text descriptionText;
+    [SerializeField] TextMeshProUGUI scoreText; // Text component to display the score
+    [SerializeField] TextMeshProUGUI descriptionText;
     public Button submitButton;
+
+    public Sprite roomBackgroundImage;
+    public Sprite publicPlaceBackgroundImage;
+    public Sprite feistBackgroundImage;
+    public GameObject backgroundImageComponent;
     
     // Descriptions
     public string DescriptionRoom = "La chambre exiguë sentait le renfermé. Un lit défait occupait presque tout l'espace. Une télévision clignotait faiblement face à une fenêtre au rideau entrouvert. Le jour filtrait timidement. Un drapeau LGBT pendait au mur, froissé, vibrant faiblement dans l'air, seul éclat de couleur dans la grisaille poussiéreuse.";
@@ -16,7 +22,7 @@ public class Score : MonoBehaviour
     public string DescriptionFeist = "Lanternes rouges suspendues aux balcons dansaient au rythme du vent chaud. Des tambours résonnaient entre les rires et les parfums de nouilles sautées, de jasmin et d'encens. Un dragon chinois ondulait dans la foule, doré et flamboyant. Au cœur de la célébration, un couple lesbien se tenait la main, leurs regards tendres illuminés par les feux d'artifice.";
     
     // Current description being used
-    public string currentDescription;
+    private string currentDescription;
     
     // Dictionary mapping descriptions to their required objects
     private Dictionary<string, List<string>> descriptionToRequiredObjects = new Dictionary<string, List<string>>();
@@ -31,8 +37,25 @@ public class Score : MonoBehaviour
     
     private void Start()
     {
-        // Set the current description (you could choose one based on level or randomly)
-        currentDescription = DescriptionRoom; // Change this as needed
+        int randomNum = Random.Range(0, 3); // Randomly select a description (0, 1, or 2)
+        Debug.Log($"Random number generated: {randomNum}");
+        
+        switch (randomNum)
+        {
+            case 0:
+                currentDescription = DescriptionRoom;
+                SetBackground(roomBackgroundImage);
+                break;
+            case 1:
+                currentDescription = DescriptionPublicPlace;
+                SetBackground(publicPlaceBackgroundImage);
+                break;
+            case 2:
+                currentDescription = DescriptionFeist;
+                SetBackground(feistBackgroundImage);
+                break;
+        }
+
         
         // Initialize the UI
         UpdateScoreUI();
@@ -104,10 +127,8 @@ public class Score : MonoBehaviour
     // Method to update the description display
     private void UpdateDescriptionUI()
     {
-        if (descriptionText != null)
-        {
             descriptionText.text = currentDescription;
-        }
+       
     }
     
     // Method to add a placed object (call this when user places an object)
@@ -122,5 +143,10 @@ public class Score : MonoBehaviour
     {
         placedObjects.Remove(objectName);
         Debug.Log($"Object removed: {objectName}");
+    }
+    private void SetBackground(Sprite backgroundSprite)
+    {
+        Debug.Log($"Setting background image: {backgroundSprite.name}");
+        backgroundImageComponent.GetComponent<Image>().sprite = backgroundSprite;
     }
 }
