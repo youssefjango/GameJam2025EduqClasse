@@ -1,1 +1,1 @@
-# GameJam2025EduqClasse
+# L.U.P.I.N. Design
