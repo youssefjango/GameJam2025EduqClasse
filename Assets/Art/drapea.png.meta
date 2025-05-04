@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 94d3f9e2d4265ec428b428435abc61c9
+guid: cd8af6b2c7db46e4f86b0e88daaf9c56
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7480137766501875882
-    second: asia_0
+      213: 6258435916347795368
+    second: drapea_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: asia_0
+      name: drapea_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 863
+        y: 251
+        width: 440
+        height: 563
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa0045bcaa9cec760800000000000000
-      internalID: 7480137766501875882
+      spriteID: 8a7e47bae4e6ad650800000000000000
+      internalID: 6258435916347795368
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      asia_0: 7480137766501875882
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

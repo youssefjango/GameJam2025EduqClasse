@@ -272,11 +272,11 @@ MonoBehaviour:
   placedObjects: []
   scoreText: {fileID: 511631336}
   descriptionText: {fileID: 775882315}
-  submitButton: {fileID: 1666140600}
   roomBackgroundImage: {fileID: 2126599428944845656, guid: 1b8cecd2e3c0bf84da82f094e36ab883, type: 3}
   publicPlaceBackgroundImage: {fileID: -2851771400056355460, guid: f8f5f6c4c4839ea41b6bee17b98a10e6, type: 3}
   feistBackgroundImage: {fileID: 7480137766501875882, guid: 94d3f9e2d4265ec428b428435abc61c9, type: 3}
   backgroundImageComponent: {fileID: 447393049}
+  timer: {fileID: 1711223891}
   DescriptionRoom: "La chambre exigu\xEB sentait le renferm\xE9. Un lit d\xE9fait
     occupait presque tout l'espace. Une t\xE9l\xE9vision clignotait faiblement face
     \xE0 une fen\xEAtre au rideau entrouvert. Le jour filtrait timidement. Un drapeau
@@ -292,6 +292,7 @@ MonoBehaviour:
     nouilles saut\xE9es, de jasmin et d'encens. Un dragon chinois ondulait dans la
     foule, dor\xE9 et flamboyant. Au c\u0153ur de la c\xE9l\xE9bration, un couple
     lesbien se tenait la main, leurs regards tendres illumin\xE9s par les feux d'artifice."
+  timeLimit: 300
 --- !u!1 &420754166
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +796,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &1000800822
 RectTransform:
@@ -900,7 +901,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!224 &1306963092
 RectTransform:
@@ -1116,7 +1117,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.70211065, g: 1, b: 0.6745283, a: 1}
@@ -1140,7 +1141,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1666140601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 387233717}
+        m_TargetAssemblyTypeName: Score, Assembly-CSharp
+        m_MethodName: CalculateScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1666140601
 MonoBehaviour:
   m_ObjectHideFlags: 0

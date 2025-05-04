@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 94d3f9e2d4265ec428b428435abc61c9
+guid: 0f8205fc71647d049bee28f128249be9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7480137766501875882
-    second: asia_0
+      213: 4420178443950970255
+    second: dragonAsia_0
+  - first:
+      213: -2814799097026043896
+    second: dragonAsia_1
+  - first:
+      213: 4536518606613772336
+    second: dragonAsia_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: asia_0
+      name: dragonAsia_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 393
+        y: 332
+        width: 24
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa0045bcaa9cec760800000000000000
-      internalID: 7480137766501875882
+      spriteID: f85598b20e0a75d30800000000000000
+      internalID: 4420178443950970255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonAsia_1
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 217
+        width: 657
+        height: 660
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8002cab7223dfe8d0800000000000000
+      internalID: -2814799097026043896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonAsia_2
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 266
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 038f92023a3f4fe30800000000000000
+      internalID: 4536518606613772336
       vertices: []
       indices: 
       edges: []
@@ -134,8 +184,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      asia_0: 7480137766501875882
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

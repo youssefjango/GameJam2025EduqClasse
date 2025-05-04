@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 94d3f9e2d4265ec428b428435abc61c9
+guid: afd33bfa891ffa344a6a3517f6780909
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7480137766501875882
-    second: asia_0
+      213: -3320192207600824052
+    second: rideauOuv_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: asia_0
+      name: rideauOuv_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 687
+        y: 311
+        width: 786
+        height: 526
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa0045bcaa9cec760800000000000000
-      internalID: 7480137766501875882
+      spriteID: c01deef37ce4ce1d0800000000000000
+      internalID: -3320192207600824052
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      asia_0: 7480137766501875882
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
