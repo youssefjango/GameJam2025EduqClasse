@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      templeAsia_0: 6291913842831668471
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

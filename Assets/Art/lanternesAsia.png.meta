@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lanternesAsia_0: -2348366604505088701
+      lanternesAsia_1: -6216580106766287844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

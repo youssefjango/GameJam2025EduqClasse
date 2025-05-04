@@ -23,7 +23,7 @@ public class levelSetter : MonoBehaviour
         buttonFirst.gameObject.SetActive(false); 
     }
 
-private IEnumerator AppearText(GameObject text, string descriptionText)
+    private IEnumerator AppearText(GameObject text, string descriptionText)
     {
         text.SetActive(true); // Show the description text
         // Get the TextMeshProUGUI component from the GameObject
@@ -51,7 +51,7 @@ private IEnumerator AppearText(GameObject text, string descriptionText)
             textMesh1.text = textMesh1.text.Substring(0, textMesh1.text.Length - 1); // Remove the last character
             yield return new WaitForSeconds(0.05f);
         }
-int length2 = textMesh2.text.Length;
+        int length2 = textMesh2.text.Length;
         for (int i = 0; i <  length2; i++)
         {
              textMesh2.text = textMesh2.text.Substring(0, textMesh2.text.Length - 1); // Remove the last character
@@ -61,6 +61,7 @@ int length2 = textMesh2.text.Length;
     }
     public void GotoLevel()
     {
+        Score.currentScore = 0; // Reset the score to 0
         SceneManager.LoadScene(levelName);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created

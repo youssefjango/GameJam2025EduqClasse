@@ -6,9 +6,11 @@ public class ObjetGen : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Sprite sprite;
     bool following = false;
-    Vector2 décalage = Vector2.zero;
+    Vector2 decalage = Vector2.zero;
 
     public ObjetGen originalPrefab;
+
+    public string nameObject;
     void Start()
     {
         
@@ -37,8 +39,8 @@ public class ObjetGen : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
-        mouseWorldPos.x += décalage.x;
-        mouseWorldPos.y += décalage.y;
+        mouseWorldPos.x += decalage.x;
+        mouseWorldPos.y += decalage.y;
         transform.position = mouseWorldPos;
     }
 
@@ -50,6 +52,6 @@ public class ObjetGen : MonoBehaviour
     public void Move(Vector2 decalage)
     {
         Move();
-        décalage = decalage;
+        this.decalage = decalage;
     }
 }

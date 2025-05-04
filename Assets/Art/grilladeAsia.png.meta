@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      grilladeAsia_0: -5133672194075332773
+      grilladeAsia_1: -6305487018249283087
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

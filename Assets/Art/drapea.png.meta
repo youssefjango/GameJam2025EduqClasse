@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      drapea_0: 6258435916347795368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

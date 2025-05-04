@@ -1,15 +1,38 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // Import TextMeshPro namespace for text components
+using UnityEngine.SceneManagement; // Import for scene management
 
 public class Score : MonoBehaviour
 {
-    private int currentScore = 0;
+    public static int currentScore = 0;
+    public  static bool removed = false;
+    public string gameOverScenePath; // Path to the game over scene
     public List<string> placedObjects = new List<string>(); // Objects placed by the user
     [SerializeField] TextMeshProUGUI scoreText; // Text component to display the score
     [SerializeField] TextMeshProUGUI descriptionText;
+    
 
+    //sound assets
+    public AudioClip soundEffectLoss; // Sound effect to play
+    public AudioClip soundEffectWin; // Sound effect to play
+    public GameObject audioSourceSFX; // Audio source to play the sound effect
+
+    public GameObject audioSourceMusic; // Audio source to play the music
+    public AudioClip musicClip1; // Music clip to play
+    public AudioClip musicClip2; // Music clip to play
+    public AudioClip musicClip3; // Music clip to play
+    
+    //report assets
+    public GameObject reportTab;
+    public GameObject reportButton;
+    public GameObject reportText;
+
+    private static int levelNumber = 0;
+
+    // Background images
     public Sprite roomBackgroundImage;
     public Sprite publicPlaceBackgroundImage;
     public Sprite feistBackgroundImage;
@@ -17,13 +40,15 @@ public class Score : MonoBehaviour
 
     public GameObject timer;
     
+    
     // Descriptions
-    public string DescriptionRoom = "La chambre exiguë sentait le renfermé. Un lit défait occupait presque tout l'espace. Une télévision clignotait faiblement face à une fenêtre au rideau entrouvert. Le jour filtrait timidement. Un drapeau LGBT pendait au mur, froissé, vibrant faiblement dans l'air, seul éclat de couleur dans la grisaille poussiéreuse.";
-    public string DescriptionPublicPlace = "Sous un soleil étincelant, le vendeur africain tenait son étal coloré en pleine place publique. Les parfums d'épices, de grillades et de mangues juteuses flottaient dans l'air. Des colliers traditionnels brillaient sous la lumière. Son sourire, franc et fier, invitait les passants à goûter un morceau d'Afrique vivante.";
+    public string DescriptionRoom = "La chambre exiguë sentait le renfermé. Un lit défait occupait presque tout l'espace. la piece clignotait faiblement face à une fenêtre au rideau entrouvert. Le jour filtrait timidement. Un drapeau LGBT pendait au mur, froissé, vibrant faiblement dans l'air, seul éclat de couleur dans la grisaille poussiéreuse, bizarrement, sans présance de cousin.";
+    public string DescriptionPublicPlace = "Sous un soleil étincelant, le vendeur africain tenait son étal coloré en pleine place publique. Les parfums de bijoux et de mangues juteuses flottaient dans l'air tout en passant par les assietes diverses. Des colliers traditionnels brillaient sous la lumière. Son sourire, franc et fier, invitait les passants à goûter un morceau d'Afrique vivante.";
     public string DescriptionFeist = "Lanternes rouges suspendues aux balcons dansaient au rythme du vent chaud. Des tambours résonnaient entre les rires et les parfums de nouilles sautées, de jasmin et d'encens. Un dragon chinois ondulait dans la foule, doré et flamboyant. Au cœur de la célébration, un couple lesbien se tenait la main, leurs regards tendres illuminés par les feux d'artifice.";
     
     // Time Challenge
-    public float timeLimit = 300f; // 5 minutes
+    public static float timeLimit = 180f; // 3 minutes
+    private static float constTime;
 
     // Current description being used
     private string currentDescription;
@@ -34,13 +59,18 @@ public class Score : MonoBehaviour
     private void Awake()
     {
         // Initialize the mapping between descriptions and required objects
-        descriptionToRequiredObjects.Add(DescriptionRoom, new List<string> { "lit", "télévision", "fenêtre", "rideau", "drapeau LGBT" });
-        descriptionToRequiredObjects.Add(DescriptionPublicPlace, new List<string> { "étal", "vendeur", "épices", "grillades", "mangues", "colliers" });
-        descriptionToRequiredObjects.Add(DescriptionFeist, new List<string> { "lanternes", "tambours", "dragon", "encens", "couple" });
+        descriptionToRequiredObjects.Add(DescriptionRoom, new List<string> { "lit", "rideauOvert", "burreau", "drapeau" });
+        descriptionToRequiredObjects.Add(DescriptionPublicPlace, new List<string> {"assietes", "fruits", "bijoux" });
+        descriptionToRequiredObjects.Add(DescriptionFeist, new List<string> { "grilladeAsia", "dragonAsia", "lanternesAsia", "templeAsia", "dragonAsia", "fontaineAsia", "coupleAsia" });
     }
     
     private void Start()
     {
+        if(levelNumber == 0){
+            constTime = timeLimit;
+        } else{
+            timeLimit = constTime - (levelNumber * 40f); // Decrease the time limit by 30 seconds for each level
+        }
         int randomNum = Random.Range(0, 3); // Randomly select a description (0, 1, or 2)
         Debug.Log($"Random number generated: {randomNum}");
         
@@ -49,16 +79,20 @@ public class Score : MonoBehaviour
             case 0:
                 currentDescription = DescriptionRoom;
                 SetBackground(roomBackgroundImage);
+                audioSourceMusic.GetComponent<AudioSource>().clip = musicClip1; // Set the music clip for this level
                 break;
             case 1:
                 currentDescription = DescriptionPublicPlace;
                 SetBackground(publicPlaceBackgroundImage);
+                audioSourceMusic.GetComponent<AudioSource>().clip = musicClip2; // Set the music clip for this level
                 break;
             case 2:
                 currentDescription = DescriptionFeist;
                 SetBackground(feistBackgroundImage);
+                audioSourceMusic.GetComponent<AudioSource>().clip = musicClip3; // Set the music clip for this level
                 break;
         }
+        audioSourceMusic.GetComponent<AudioSource>().Play(); // Play the music clip
 
         
         // Initialize the UI
@@ -78,68 +112,71 @@ public class Score : MonoBehaviour
             } else {
                 timer.GetComponent<TextMeshProUGUI>().color = Color.white; // Reset color to white when time is normal
             }
+            
             timer.GetComponent<TextMeshProUGUI>().text = (int) timeLimit / 60 + ":" + (int) timeLimit % 60;
+            if(timeLimit % 60 < 10){
+                timer.GetComponent<TextMeshProUGUI>().text = (int) timeLimit / 60 + ":0" + (int) timeLimit % 60;
+            }
         } else
             {
-                Debug.Log("Time's up! Final score: " + currentScore);
-                // Handle end of time limit (e.g., show final score, disable input, etc.)
+                CalculateScore();
+            }
+           if (Input.GetKeyDown(KeyCode.Space)){
+                CalculateScore();
             }
     }
     
     // Ensure this method is linked to the button's onClick event in the Unity Editor
     public void CalculateScore()
     {
-        Debug.Log("Calculating score...");
-        if (descriptionToRequiredObjects.ContainsKey(currentDescription))
+        audioSourceSFX.GetComponent<AudioSource>().clip = soundEffectWin; // Set the sound effect for this level
+        audioSourceSFX.GetComponent<AudioSource>().Play(); // Play the sound effect
+        int score = 0;
+        // emplement score logic here
+        List<GameObject> objectsInScene = new List<GameObject>(GameObject.FindGameObjectsWithTag("Objet"));
+        bool atLeastOneObject = false;
+        foreach (GameObject obj in objectsInScene)
         {
-            // Get required objects for the current description
-            List<string> requiredObjects = descriptionToRequiredObjects[currentDescription];
-            
-            int matchedObjects = 0;
-            int unrelatedObjects = 0;
-            int totalRequiredObjects = requiredObjects.Count;
-            
-            // Count matches and unrelated objects
-            foreach (string obj in placedObjects)
+            string objectName = obj.GetComponent<ObjetGen>().nameObject;
+            Debug.Log($"Checking object: {objectName}");
+            Debug.Log(descriptionToRequiredObjects[currentDescription].Contains(objectName));
+            if (descriptionToRequiredObjects[currentDescription].Contains(objectName))
             {
-                if (requiredObjects.Contains(obj))
-                {
-                    matchedObjects++;
-                }
-                else
-                {
-                    unrelatedObjects++;
-                }
+                score += 30; // Add points for each correctly placed object
+                atLeastOneObject = true;
+            } else{
+                score -= 30;
             }
-            
-            // Calculate percentage of required objects found
-            float completionPercentage = (float)matchedObjects / totalRequiredObjects;
-            
-            // Update score based on matches and unrelated objects
-            int matchScore = matchedObjects * 10; // 10 points per match
-            int penaltyScore = unrelatedObjects * 5; // 5 points penalty per unrelated object
-            
-            // Update the score
-            currentScore += matchScore - penaltyScore;
-            
-            // Show results
-            Debug.Log($"Required objects: {totalRequiredObjects}, Matched: {matchedObjects}, Unrelated: {unrelatedObjects}");
-            Debug.Log($"Completion rate: {completionPercentage * 100}%");
-            Debug.Log($"Score update: +{matchScore} -{penaltyScore} = {matchScore - penaltyScore}");
-            
-            // Check for failure condition
-            if (matchedObjects == 0)
-            {
-                Debug.Log("No required objects placed. You lose!");
+        }
+        // check if there are missing objects
+        if(objectsInScene.Count < descriptionToRequiredObjects[currentDescription].Count){
+            score -= 10 * (descriptionToRequiredObjects[currentDescription].Count - objectsInScene.Count); // Deduct points for missing objects
+        }
+        currentScore += score;
+        Debug.Log($"Current score: {currentScore}");
+        if(!atLeastOneObject || currentScore < 0){ // no object placed correctly
+        removed = true;
+        SceneManager.LoadScene(gameOverScenePath);
+         // Load the game over scene
+        return;
             }
-            
-            // Update UI
-            UpdateScoreUI();
+        if(levelNumber == 5){
+            levelNumber = 0;
+            // Load the final scene
+            SceneManager.LoadScene("Scenes/GameOver"); 
+        } else{
+            levelNumber++;
         }
-        else
-        {
-            Debug.LogError("Current description not found in the dictionary.");
-        }
+        UpdateScoreUI();
+        //reload scene to reset the game
+        loadReport(); 
+        
+    }
+    public void loadReport(){
+        reportTab.SetActive(true);
+        reportButton.SetActive(true);
+        reportText.GetComponent<TextMeshProUGUI>().text = "1. Vous avez recu" + currentScore + "$ pour vos traveaux. \n" + "2. Il y avait " + (descriptionToRequiredObjects[currentDescription].Count) + " objets à placer au total.\n Notre client est content du resultat, merci.\n  -L.U.P.I.N.";
+
     }
     
     // Method to update the score display
@@ -147,33 +184,35 @@ public class Score : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = $"Score: {currentScore}";
+            scoreText.text = $"{currentScore}";
         }
     }
     
     // Method to update the description display
     private void UpdateDescriptionUI()
     {
-            descriptionText.text = currentDescription;
-       
+        descriptionText.text = ""; // Clear the text before displaying the new description
+        StartCoroutine(AppearText(descriptionText, currentDescription)); 
+    }
+    private IEnumerator AppearText(TextMeshProUGUI text, string descriptionText)
+    {
+        
+        // Animate each character one by one
+        for (int i = 0; i < descriptionText.Length; i++)
+        {
+            text.text += descriptionText[i]; // Remove the last character
+            yield return new WaitForSeconds(0.05f); // Adjust the delay as needed
+        }
     }
     
     // Method to add a placed object (call this when user places an object)
-    public void AddPlacedObject(string objectName)
-    {
-        placedObjects.Add(objectName);
-        Debug.Log($"Object added: {objectName}");
-    }
-    
-    // Method to remove a placed object (call this when user removes an object)
-    public void RemovePlacedObject(string objectName)
-    {
-        placedObjects.Remove(objectName);
-        Debug.Log($"Object removed: {objectName}");
-    }
     private void SetBackground(Sprite backgroundSprite)
     {
         Debug.Log($"Setting background image: {backgroundSprite.name}");
-        backgroundImageComponent.GetComponent<Image>().sprite = backgroundSprite;
+        backgroundImageComponent.GetComponent<SpriteRenderer>().sprite = backgroundSprite;
+    }
+    public void resetLevel(){
+        timeLimit = constTime;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

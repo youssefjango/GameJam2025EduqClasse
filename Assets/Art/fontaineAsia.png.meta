@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fontaineAsia_0: 5244517724485054889
+      fontaineAsia_1: 5910565300107627616
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
